@@ -1,0 +1,98 @@
+﻿@model Teste.Models.CalculoVM
+
+@{
+    ViewBag.Title = "Telzir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" >
+    var calculado = '@Model.Calculado';
+    
+        $(function() {
+
+            $('.div2').hide();
+
+            $('.sair').on('click', function () {
+                    $('.gridp').show();
+                    $('.div2').hide();
+            });
+            
+            if (calculado == 'True') {
+
+                $('.gridp').hide();
+                $('.div2').show();
+            }
+
+        });
+
+
+    </script>
+
+<div class="container_12">
+    <div class="grid_12">
+        <div class="slogan">
+            Ola Cliente Bem-vindo a Calculadora de Plano !! 
+        </div>        
+        
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {id = "form"}))
+        {
+            
+            @Html.HiddenFor(m => m.ValorCom)
+
+            @Html.HiddenFor(m => m.ValorSem)
+            
+            <div class="grid_12 gridp" style="text-align: center;">
+                <h2 class="head1">Consulta</h2>
+					
+                <span data-valmsg-for="Erro" data-valmsg-replace="true" style="color:red;">@Html.ValidationSummary(true)</span>
+                
+                <br />
+                        
+                @Html.Label("Selecione seu plano")
+                @Html.DropDownList("PlanoId", (IEnumerable<SelectListItem>) ViewBag.Planos)
+                <br />
+            
+                <br />
+                @Html.Label("Digite DDD Origem")
+                @Html.EditorFor(m => m.Origem)
+                <br />
+            
+                <br />
+                @Html.Label("Digite DDD Destino")
+                @Html.EditorFor(m => m.Destino)
+                <br />
+                        
+                <br />
+                @Html.Label("Digite Tempo da Ligação")
+                @Html.EditorFor(m => m.Tempo)
+                <br />
+                        
+                <input type="submit" class="btn" />
+                        
+            </div>
+            
+            
+            
+        }
+        
+        <div class="div2" style="text-align: center;">
+           
+            <p> Com FaleMais</p>
+            <p> $ @Model.ValorCom</p>
+
+            <br />
+            
+            <p> Sem FaleMais</p>
+            <p> $ @Model.ValorSem</p>
+         
+            <a class="sair">Sair</a>
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+
+
